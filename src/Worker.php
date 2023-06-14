@@ -8,10 +8,14 @@ final class Worker
 {
     private readonly WorkerConditions $conditions;
 
+    private readonly WorkerConfiguration $configuration;
+
     public function __construct(
         WorkerConditions $conditions = null,
+        WorkerConfiguration $configuration = null,
     ) {
         $this->conditions = $conditions ?? new WorkerConditions();
+        $this->configuration = $configuration ?? new WorkerConfiguration();
     }
 
     public function run(callable $fn, mixed ...$args): WorkerResult
@@ -29,8 +33,10 @@ final class Worker
 
             if ($isHandled) {
                 ++$countHandled;
+                usleep($this->configuration->getSleepMicrosecondsAfterHandled());
             } else {
                 ++$countEmpty;
+                usleep($this->configuration->getSleepMicrosecondsAfterEmpty());
             }
 
             $timeElapsed = time() - $startTime;
