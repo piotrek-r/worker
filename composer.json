@@ -1,0 +1,19 @@
+{
+  "name": "piotrek-r/worker",
+  "description": "A simple worker implementation to loop a callback function until one of the defined conditions is met",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Piotr Rybałtowski"
+    }
+  ],
+  "require": {
+    "php": "^8.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "PiotrekR\\Worker\\": "src/"
+    }
+  }
+}
