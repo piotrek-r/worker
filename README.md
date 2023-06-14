@@ -20,6 +20,8 @@ $worker->run(function () {
 });
 ```
 
+The callback function should return a truthy value if it did some work, and a falsy value otherwise. This is used to determine stop conditions and sleep time.
+
 ### Conditions ###
 
 `WorkerConditions` can be used to set conditions for the worker to stop.
@@ -109,12 +111,40 @@ $worker->run(function () {
 });
 ```
 
+### Arguments ###
+
+You can pass arguments to the `run` method. All arguments will be passed to the callback function.
+
+```php
+$arg1 = 'foo';
+$arg2 = 'bar';
+$arg3 = 3;
+
+$worker = new \PiotrekR\Worker\Worker();
+
+$worker->run(function (string $arg1, string $arg2, int $arg3) {
+    echo $argument;
+    return true;
+}, $arg1, $arg2, $arg3);
+```
+
+### Result ###
+
+The `run` method returns a `WorkerResult` object with the following methods:
+
+* `getTimeElapsed(): int` - the time elapsed in seconds
+* `getCountLoops(): int` - the number of loops which is the sum of the other types
+* `getCountHandled(): int` - the number of loops were the function returned a truthy value
+* `getCountEmpty(): int` - the number of loops were the function returned a falsy value
+
 ### Example ###
 
 ```php
 use PiotrekR\Worker\Worker;
 use PiotrekR\Worker\WorkerConditions;
 use PiotrekR\Worker\WorkerConfiguration;
+
+$queue = new ThirdPartyQueueHandler();
 
 $workerConditions = new WorkerConditions(
     timeSeconds: 10,
@@ -128,10 +158,9 @@ $workerConfiguration = new WorkerConfiguration(
 
 $worker = new Worker($workerConditions, $workerConfiguration);
 
-$result = $worker->run(function () use (&$str) {
-    echo 'Hello world!', PHP_EOL;
-    return (bool)random_int(0, 1);
-});
+$result = $worker->run(function (ThirdPartyQueueHandler $queue) {
+    return $queue->handleNextMessage();
+}, $queue);
 
 printf(
     "It took %d seconds to loop %d times. Of which %d were handled, and %d were empty.\n",
