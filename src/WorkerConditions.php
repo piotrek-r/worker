@@ -6,12 +6,12 @@ namespace PiotrekR\Worker;
 
 final class WorkerConditions
 {
-    private const SUFFIXES = ['b', 'k', 'm', 'g', 't', 'p', 'e', 'z', 'y'];
+    private const SUFFIXES = ['b', 'k', 'm', 'g', 't', 'p', 'e'];
 
     private readonly int|null $memory;
 
     /**
-     * @param string|int|null $memory Format: 1, 1b, 1k, 1m, 1g, 1t, 1p, 1e, 1z, 1y
+     * @param string|int|null $memory Format: 1, 1b, 1k, 1m, 1g, 1t, 1p, 1e
      */
     public function __construct(
         private readonly int|null $timeSeconds = null,
