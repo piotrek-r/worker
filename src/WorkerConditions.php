@@ -6,7 +6,7 @@ namespace PiotrekR\Worker;
 
 final class WorkerConditions
 {
-    private const SUFFIXES = ['b', 'k', 'm', 'g', 't', 'p', 'e'];
+    private const array SUFFIXES = ['b', 'k', 'm', 'g', 't', 'p', 'e'];
 
     private readonly int|null $memory;
 

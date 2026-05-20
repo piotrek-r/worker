@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace PiotrekR\Worker;
 
-final class WorkerResult
+final readonly class WorkerResult
 {
     public function __construct(
-        private readonly int $timeElapsed,
-        private readonly int $countLoops,
-        private readonly int $countHandled,
-        private readonly int $countEmpty,
+        private int $timeElapsed,
+        private int $countLoops,
+        private int $countHandled,
+        private int $countEmpty,
     ) {
     }
 

@@ -33,11 +33,11 @@ class WorkerTest extends TestCase
 
     public function testWillThrowException(): void
     {
-        self::expectException(RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
         $worker = new Worker();
         $worker->run(function () {
-            throw new RuntimeException();
+            throw new RuntimeException('Some exception');
         });
     }
 
@@ -182,10 +182,7 @@ class WorkerTest extends TestCase
             configuration: $workerConfiguration,
         );
         $result = $worker->run(function () use ($return) {
-            if ($return !== null) {
-                return $return;
-            }
-            return (bool)random_int(0, 1);
+            return $return ?? (bool)random_int(0, 1);
         });
         if (is_array($expected)) {
             self::assertGreaterThanOrEqual($expected[0], $result->getTimeElapsed());
