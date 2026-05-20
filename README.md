@@ -35,7 +35,9 @@ $workerConditions = new \PiotrekR\Worker\WorkerConditions(
     timeSeconds: 10,
 );
 
-$worker = new \PiotrekR\Worker\Worker($workerConditions);
+$worker = new \PiotrekR\Worker\Worker(
+    conditions: $workerConditions,
+);
 
 $worker->run(function () {
     // do something
@@ -104,7 +106,9 @@ $workerConfiguration = new \PiotrekR\Worker\WorkerConfiguration(
     sleepMicrosecondsAfterEmpty: 5000000, // 5s to not spam the queue
 );
 
-$worker = new \PiotrekR\Worker\Worker(null, $workerConfiguration);
+$worker = new \PiotrekR\Worker\Worker(
+    configuration: $workerConfiguration,
+);
 
 $worker->run(function () {
     // do something
