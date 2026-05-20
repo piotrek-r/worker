@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace PiotrekR\Worker;
 
-final class WorkerConfiguration
+final readonly class WorkerConfiguration
 {
     public function __construct(
-        private readonly int $sleepMicrosecondsAfterHandled = 0,
-        private readonly int $sleepMicrosecondsAfterEmpty = 0,
+        private int $sleepMicrosecondsAfterHandled = 0,
+        private int $sleepMicrosecondsAfterEmpty = 0,
     ) {
     }
 

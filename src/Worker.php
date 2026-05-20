@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace PiotrekR\Worker;
 
-final class Worker
+final readonly class Worker
 {
-    private readonly WorkerConditions $conditions;
+    private WorkerConditions $conditions;
 
-    private readonly WorkerConfiguration $configuration;
+    private WorkerConfiguration $configuration;
 
     public function __construct(
-        WorkerConditions $conditions = null,
-        WorkerConfiguration $configuration = null,
+        WorkerConditions|null $conditions = null,
+        WorkerConfiguration|null $configuration = null,
     ) {
         $this->conditions = $conditions ?? new WorkerConditions();
         $this->configuration = $configuration ?? new WorkerConfiguration();
